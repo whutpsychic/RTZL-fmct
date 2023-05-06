@@ -1,7 +1,9 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
+import 'package:fmct/components/ModalConfirm.dart';
 import 'package:fmct/components/ModalTips.dart';
-import './components/ModalConfirm.dart';
+import 'package:fmct/components/ModalLoading.dart';
+import 'package:fmct/components/Toast.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -26,7 +28,9 @@ class _MyAppState extends State<App> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildButton("轻提示", () {}),
+            _buildButton("轻提示", () {
+              Toast.show(context, "Hi，短提示在此！");
+            }),
             _buildButton('模态提示', () async {
               await ModalTips.show(context, "title", "desc");
             }),
@@ -35,7 +39,10 @@ class _MyAppState extends State<App> {
                   await ModalConfirm.show(context, "title", "desc");
               print(result);
             }),
-            _buildButton('模态进度条', () {}),
+            _buildButton('模态加载中提示', () {
+              ModalLoading.show(context);
+            }),
+            _buildButton('模态进度条信息', () {}),
           ],
         ),
       ),
