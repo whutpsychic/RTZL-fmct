@@ -14,17 +14,33 @@ class App extends StatefulWidget {
   State<App> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<App> {
+class _MyAppState extends State<App> with TickerProviderStateMixin {
   Timer? timer;
+  late AnimationController controller;
 
   @override
   void initState() {
+    controller = AnimationController(
+      /// [AnimationController]s can be created with `vsync: this` because of
+      /// [TickerProviderStateMixin].
+      vsync: this,
+      duration: const Duration(seconds: 2),
+    )..addListener(() {
+        setState(() {});
+      });
+    controller.repeat();
     super.initState();
   }
 
   @override
   void dispose() {
+    controller.dispose();
     super.dispose();
+  }
+
+  void dosth() {
+    controller.forward(from: controller.value);
+    print("klklkl");
   }
 
   @override
@@ -54,9 +70,22 @@ class _MyAppState extends State<App> {
               ModalLoading.hide(context);
             }),
             _buildButton('模态进度条信息', () async {
-              ModalProgress.show(context);
-              timer = Timer.periodic(const Duration(seconds: 1),
-                  (Timer t) => ModalProgress.addstep(0.2));
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text("加载中..."),
+                  content: SizedBox(
+                    width: 100,
+                    height: 50,
+                    child: Center(
+                      child: LinearProgressIndicator(value: controller.value),
+                    ),
+                  ),
+                ),
+                barrierDismissible: false,
+              );
+              timer = Timer.periodic(
+                  const Duration(seconds: 1), (Timer t) => dosth());
 
               await Future.delayed(const Duration(seconds: 6));
               ModalProgress.hide(context);

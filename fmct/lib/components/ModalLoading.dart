@@ -48,7 +48,7 @@ class ModalLoading {
     }
   }
 
-  hide(BuildContext context) {
+  static void hide(BuildContext context) {
     Navigator.of(context).pop();
   }
 }
