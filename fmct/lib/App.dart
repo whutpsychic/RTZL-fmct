@@ -1,11 +1,11 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fmct/components/ModalConfirm.dart';
-import 'package:fmct/components/ModalTips.dart';
-import 'package:fmct/components/ModalLoading.dart';
-import 'package:fmct/components/ModalProgress.dart';
-import 'package:fmct/components/Toast.dart';
+import 'package:fmct/service/ModalConfirm.dart';
+import 'package:fmct/service/ModalTips.dart';
+import 'package:fmct/service/ModalLoading.dart';
+import 'package:fmct/service/ModalProgress.dart';
+import 'package:fmct/service/Toast.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

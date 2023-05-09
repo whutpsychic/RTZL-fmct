@@ -5,26 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 class ModalConfirm {
   static Future show(BuildContext context, String title, String desc) async {
-    if (Platform.isAndroid) {
-      // print('当前运行的平台是 Android');
-      return showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text(title),
-          content: Text(desc),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () => Navigator.pop(context, "false"),
-              child: const Text('取消'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, "true"),
-              child: const Text('确定'),
-            ),
-          ],
-        ),
-      );
-    } else if (Platform.isIOS) {
+    if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
       return showCupertinoModalPopup<String>(
         context: context,
@@ -50,14 +31,27 @@ class ModalConfirm {
           ],
         ),
       );
-    } else if (Platform.isWindows) {
-      print('当前运行的平台是 Windows');
-    } else if (Platform.isMacOS) {
-      print('当前运行的平台是 macOS');
-    } else if (Platform.isLinux) {
-      print('当前运行的平台是 Linux');
-    } else {
-      print('当前运行的平台未知');
+    }
+    // 其余平台一律按 Android 处理
+    else {
+      // print('当前运行的平台是 Android');
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(title),
+          content: Text(desc),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, "false"),
+              child: const Text('取消'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, "true"),
+              child: const Text('确定'),
+            ),
+          ],
+        ),
+      );
     }
   }
 }

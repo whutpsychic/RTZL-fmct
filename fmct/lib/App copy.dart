@@ -1,11 +1,11 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fmct/components/ModalConfirm.dart';
-import 'package:fmct/components/ModalTips.dart';
-import 'package:fmct/components/ModalLoading.dart';
-import 'package:fmct/components/ModalProgress.dart';
-import 'package:fmct/components/Toast.dart';
+import 'package:fmct/service/ModalConfirm.dart';
+import 'package:fmct/service/ModalTips.dart';
+import 'package:fmct/service/ModalLoading.dart';
+import 'package:fmct/service/ModalProgress.dart';
+import 'package:fmct/service/Toast.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -14,33 +14,17 @@ class App extends StatefulWidget {
   State<App> createState() => _MyAppState();
 }
 
-class _MyAppState extends State<App> with TickerProviderStateMixin {
+class _MyAppState extends State<App> {
   Timer? timer;
-  late AnimationController controller;
 
   @override
   void initState() {
-    controller = AnimationController(
-      /// [AnimationController]s can be created with `vsync: this` because of
-      /// [TickerProviderStateMixin].
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    )..addListener(() {
-        setState(() {});
-      });
-    controller.repeat();
     super.initState();
   }
 
   @override
   void dispose() {
-    controller.dispose();
     super.dispose();
-  }
-
-  void dosth() {
-    controller.forward(from: controller.value);
-    print("klklkl");
   }
 
   @override
@@ -70,22 +54,9 @@ class _MyAppState extends State<App> with TickerProviderStateMixin {
               ModalLoading.hide(context);
             }),
             _buildButton('模态进度条信息', () async {
-              showDialog<String>(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text("加载中..."),
-                  content: SizedBox(
-                    width: 100,
-                    height: 50,
-                    child: Center(
-                      child: LinearProgressIndicator(value: controller.value),
-                    ),
-                  ),
-                ),
-                barrierDismissible: false,
-              );
-              timer = Timer.periodic(
-                  const Duration(seconds: 1), (Timer t) => dosth());
+              ModalProgress.show(context);
+              timer = Timer.periodic(const Duration(seconds: 1),
+                  (Timer t) => ModalProgress.addstep(0.2));
 
               await Future.delayed(const Duration(seconds: 6));
               ModalProgress.hide(context);
