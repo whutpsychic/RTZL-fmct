@@ -1,16 +1,30 @@
 // ignore_for_file: file_names
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:easy_app_installer/easy_app_installer.dart';
 import 'package:fmct/service/ModalProgress.dart';
 import 'package:fmct/service/Toast.dart';
 
 class AppUpdater {
+  static final Uri _url = Uri.parse(
+      "https://apps.apple.com/us/app/flutter%E7%91%9E%E5%A4%AA/id1582156692");
+
+  static Future<void> _launchUrl(context) async {
+    if (!await launchUrl(
+      _url,
+      // mode: LaunchMode.externalApplication,
+    )) {
+      Toast.show(context, "操作失败!");
+    }
+  }
+
   static void updateApp(
       BuildContext context, String url, String fileName) async {
     // 如果是苹果，那么跳转至应用商店
     if (Platform.isIOS) {
+      _launchUrl(context);
     }
     // 其余按照Android处理
     else {
