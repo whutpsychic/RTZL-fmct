@@ -10,18 +10,21 @@ class ModalProgress {
     key.currentState?.addstep(x);
   }
 
-  static Future show(BuildContext context) async {
+  static void setstep(double x) {
+    key.currentState?.setstep(x);
+  }
+
+  static Future show(BuildContext context, String content) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
       return showCupertinoModalPopup<String>(
         context: context,
-        builder: (BuildContext context) => const CupertinoAlertDialog(
-          title: Text("加载中..."),
+        builder: (BuildContext context) => CupertinoAlertDialog(
+          title: Text(content),
           content: SizedBox(
-            width: 100,
-            height: 50,
+            height: 60,
             child: Center(
-              child: CircularProgressIndicator(),
+              child: ProgressIndicatorComponent(key: key),
             ),
           ),
         ),
@@ -34,7 +37,7 @@ class ModalProgress {
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text("加载中..."),
+          title: Text(content),
           content: SizedBox(
             height: 60,
             child: Center(
@@ -88,6 +91,10 @@ class _ProgressIndicatorState extends State<ProgressIndicatorComponent>
   void addstep(double x) {
     _percent += x;
     controller.animateTo(_percent);
+  }
+
+  void setstep(double x) {
+    controller.animateTo(x);
   }
 
   void clear() {

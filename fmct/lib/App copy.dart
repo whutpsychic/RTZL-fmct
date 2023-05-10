@@ -54,7 +54,7 @@ class _MyAppState extends State<App> {
               ModalLoading.hide(context);
             }),
             _buildButton('模态进度条信息', () async {
-              ModalProgress.show(context);
+              ModalProgress.show(context, "加载中...");
               timer = Timer.periodic(const Duration(seconds: 1),
                   (Timer t) => ModalProgress.addstep(0.2));
 

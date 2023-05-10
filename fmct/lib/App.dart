@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:fmct/service/AppUpdater.dart';
 import 'package:fmct/service/ModalConfirm.dart';
 import 'package:fmct/service/ModalTips.dart';
 import 'package:fmct/service/ModalLoading.dart';
@@ -54,13 +55,17 @@ class _MyAppState extends State<App> {
               ModalLoading.hide(context);
             }),
             _buildButton('模态进度条信息', () async {
-              ModalProgress.show(context);
+              ModalProgress.show(context, "加载中...");
               timer = Timer.periodic(const Duration(seconds: 1),
                   (Timer t) => ModalProgress.addstep(0.2));
 
               await Future.delayed(const Duration(seconds: 6));
               ModalProgress.hide(context);
               timer?.cancel();
+            }),
+            _buildButton('App 更新', () async {
+              AppUpdater.updateApp(context,
+                  "http://nxbhyt.cn:8280/exam/app/bhyt.apk", "fmct.apk");
             }),
           ],
         ),
