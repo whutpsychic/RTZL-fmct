@@ -7,22 +7,37 @@ class ModalTips {
   static Future show(BuildContext context, String title, String desc) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
-      return showCupertinoModalPopup<String>(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(desc),
-          actions: <CupertinoDialogAction>[
-            CupertinoDialogAction(
-              /// This parameter indicates the action would perform
-              /// a destructive action such as deletion, and turns
-              /// the action's text color to red.
-              isDefaultAction: true,
-              onPressed: () => Navigator.pop(context),
-              child: const Text('好'),
+      showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return ScaleTransition(
+            scale: Tween<double>(begin: 0.9, end: 1.0).animate(a1),
+            child: FadeTransition(
+              opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+              child: CupertinoAlertDialog(
+                title: Text(title),
+                content: Text(desc),
+                actions: <CupertinoDialogAction>[
+                  CupertinoDialogAction(
+                    /// This parameter indicates the action would perform
+                    /// a destructive action such as deletion, and turns
+                    /// the action's text color to red.
+                    isDefaultAction: true,
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('好'),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 150),
+        barrierDismissible: false,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+          return Container();
+        },
       );
     }
     // 其余平台一律按 Android 处理

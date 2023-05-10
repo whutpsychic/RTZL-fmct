@@ -7,19 +7,33 @@ class ModalLoading {
   static Future show(BuildContext context) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
-      return showCupertinoModalPopup<String>(
-        context: context,
-        builder: (BuildContext context) => const CupertinoAlertDialog(
-          title: Text("加载中..."),
-          content: SizedBox(
-            width: 100,
-            height: 50,
-            child: Center(
-              child: CircularProgressIndicator(),
+      showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return ScaleTransition(
+            scale: Tween<double>(begin: 0.9, end: 1.0).animate(a1),
+            child: FadeTransition(
+              opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+              child: const CupertinoAlertDialog(
+                title: Text("加载中..."),
+                content: SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 150),
         barrierDismissible: false,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+          return Container();
+        },
       );
     }
     // 其余平台一律按 Android 处理

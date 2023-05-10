@@ -17,18 +17,32 @@ class ModalProgress {
   static Future show(BuildContext context, String content) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
-      return showCupertinoModalPopup<String>(
-        context: context,
-        builder: (BuildContext context) => CupertinoAlertDialog(
-          title: Text(content),
-          content: SizedBox(
-            height: 60,
-            child: Center(
-              child: ProgressIndicatorComponent(key: key),
+      showGeneralDialog(
+        barrierColor: Colors.black.withOpacity(0.5),
+        transitionBuilder: (context, a1, a2, widget) {
+          return ScaleTransition(
+            scale: Tween<double>(begin: 0.9, end: 1.0).animate(a1),
+            child: FadeTransition(
+              opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
+              child: CupertinoAlertDialog(
+                title: Text(content),
+                content: SizedBox(
+                  height: 60,
+                  child: Center(
+                    child: ProgressIndicatorComponent(key: key),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 150),
         barrierDismissible: false,
+        barrierLabel: '',
+        context: context,
+        pageBuilder: (context, animation1, animation2) {
+          return Container();
+        },
       );
     }
     // 其余平台一律按 Android 处理
