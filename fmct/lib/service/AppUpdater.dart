@@ -7,16 +7,14 @@ import 'package:easy_app_installer/easy_app_installer.dart';
 import 'package:fmct/service/ModalProgress.dart';
 import 'package:fmct/service/Toast.dart';
 
-class AppUpdater {
-  static final Uri _url = Uri.parse(
-      "https://apps.apple.com/us/app/flutter%E7%91%9E%E5%A4%AA/id1582156692");
+import '../config.dart';
 
-  static Future<void> _launchUrl(context) async {
-    if (!await launchUrl(
-      _url,
-      // mode: LaunchMode.externalApplication,
-    )) {
-      Toast.show(context, "操作失败!");
+class AppUpdater {
+  static final Uri _url = Uri.parse(Config.updateAppStoreUrl);
+
+  static Future<void> _launchUrl(BuildContext context) async {
+    if (!await launchUrl(_url)) {
+      Toast.show(context, "更新失败!");
     }
   }
 
@@ -31,8 +29,6 @@ class AppUpdater {
       ModalProgress.show(context, "正在下载更新...");
       // fileUrl 需替换为指定apk地址
       await EasyAppInstaller.instance.downloadAndInstallApk(
-        // fileUrl:
-        //     "https://github.com/whutpsychic/RTZL-fmct/raw/main/testapk2.apk",
         fileUrl: url,
         fileDirectory: "updateApk",
         fileName: fileName,

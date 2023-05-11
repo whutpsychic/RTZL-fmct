@@ -40,12 +40,13 @@ dependencies:
   # 地址跳转
   # 唤醒其他 app 模块
   url_launcher: ^6.1.11
-  # ======= 低信赖度三方模块 =======
-  # 下载安装 apk 文件模块
-  easy_app_installer: ^1.0.0
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  # ======= 低信赖度三方模块 =======
+  # 下载安装 apk 文件模块
+  easy_app_installer: ^1.0.0
+
 
 dev_dependencies:
   flutter_test:

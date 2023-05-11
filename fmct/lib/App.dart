@@ -1,12 +1,7 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fmct/service/AppUpdater.dart';
-import 'package:fmct/service/ModalConfirm.dart';
-import 'package:fmct/service/ModalTips.dart';
-import 'package:fmct/service/ModalLoading.dart';
-import 'package:fmct/service/ModalProgress.dart';
-import 'package:fmct/service/Toast.dart';
+import 'package:fmct/service/main.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -64,8 +59,12 @@ class _MyAppState extends State<App> {
               timer?.cancel();
             }),
             _buildButton('App 更新', () async {
+              //     "https://github.com/whutpsychic/RTZL-fmct/raw/main/testapk2.apk",
               AppUpdater.updateApp(context,
                   "http://nxbhyt.cn:8280/exam/app/bhyt.apk", "fmct.apk");
+            }),
+            _buildButton('拨打电话: 139 8888 8888', () async {
+              PhoneCall.dial(context, "13988888888");
             }),
           ],
         ),
