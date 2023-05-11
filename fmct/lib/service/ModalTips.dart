@@ -7,7 +7,7 @@ class ModalTips {
   static Future show(BuildContext context, String title, String desc) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
-      showGeneralDialog(
+      return showGeneralDialog<String>(
         barrierColor: Colors.black.withOpacity(0.5),
         transitionBuilder: (context, a1, a2, widget) {
           return ScaleTransition(
@@ -23,7 +23,7 @@ class ModalTips {
                     /// a destructive action such as deletion, and turns
                     /// the action's text color to red.
                     isDefaultAction: true,
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.pop(context, "true"),
                     child: const Text('好'),
                   ),
                 ],
@@ -50,11 +50,12 @@ class ModalTips {
           content: Text(desc),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pop(context, "true"),
               child: const Text('确定'),
             ),
           ],
         ),
+        barrierDismissible: false,
       );
     }
   }

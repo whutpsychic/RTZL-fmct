@@ -66,6 +66,7 @@ class ModalConfirm {
             ),
           ],
         ),
+        barrierDismissible: false,
       );
     }
   }

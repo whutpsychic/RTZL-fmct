@@ -37,7 +37,8 @@ class _MyAppState extends State<App> {
               Toast.show(context, "Hi，短提示在此！");
             }),
             _buildButton('模态提示', () async {
-              await ModalTips.show(context, "title", "desc");
+              String? result = await ModalTips.show(context, "title", "desc");
+              print(result);
             }),
             _buildButton('模态确认询问', () async {
               String? result =
