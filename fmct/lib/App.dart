@@ -66,6 +66,9 @@ class _MyAppState extends State<App> {
             _buildButton('拨打电话: 139 8888 8888', () async {
               PhoneCall.dial(context, "13988888888");
             }),
+            _buildButton('在浏览器中打开某网页(百度)', () async {
+              LaunchInExplorer.at(context, "https://www.baidu.com");
+            }),
           ],
         ),
       ),

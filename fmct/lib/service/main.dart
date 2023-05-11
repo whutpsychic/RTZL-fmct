@@ -1,4 +1,5 @@
 export 'package:fmct/service/AppUpdater.dart';
+export 'package:fmct/service/LaunchInExplorer.dart';
 export 'package:fmct/service/ModalConfirm.dart';
 export 'package:fmct/service/ModalTips.dart';
 export 'package:fmct/service/ModalLoading.dart';
