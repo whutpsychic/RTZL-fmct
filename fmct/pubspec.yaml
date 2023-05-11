@@ -46,6 +46,8 @@ dependencies:
   # ======= 低信赖度三方模块 =======
   # 下载安装 apk 文件模块
   easy_app_installer: ^1.0.0
+  # 浏览器组件
+  flutter_webview_pro: ^3.0.1+3
 
 
 dev_dependencies:

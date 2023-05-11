@@ -7,10 +7,10 @@ import 'package:easy_app_installer/easy_app_installer.dart';
 import 'package:fmct/service/ModalProgress.dart';
 import 'package:fmct/service/Toast.dart';
 
-import '../config.dart';
+import '../appConfig.dart';
 
 class AppUpdater {
-  static final Uri _url = Uri.parse(Config.updateAppStoreUrl);
+  static final Uri _url = Uri.parse(StaticConfig.updateAppStoreUrl);
 
   static Future<void> _launchUrl(BuildContext context) async {
     if (!await launchUrl(_url)) {

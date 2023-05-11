@@ -1,7 +1,9 @@
 // ignore_for_file: file_names, use_build_context_synchronously
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fmct/service/main.dart';
+import 'package:flutter_webview_pro/webview_flutter.dart';
+
+import 'appConfig.dart';
+import 'service/main.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -11,7 +13,8 @@ class App extends StatefulWidget {
 }
 
 class _MyAppState extends State<App> {
-  Timer? timer;
+  final String appUrl = AppConfig.h5url;
+  late WebViewController? _webViewController;
 
   @override
   void initState() {
@@ -25,67 +28,80 @@ class _MyAppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('fmct'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _buildButton("轻提示", () {
-              Toast.show(context, "Hi，短提示在此！");
-            }),
-            _buildButton('模态提示', () async {
-              String? result = await ModalTips.show(context, "title", "desc");
-              print(result);
-            }),
-            _buildButton('模态确认询问', () async {
-              String? result =
-                  await ModalConfirm.show(context, "title", "desc");
-              print(result);
-            }),
-            _buildButton('模态加载中提示', () async {
-              ModalLoading.show(context);
-              await Future.delayed(const Duration(seconds: 3));
-              ModalLoading.hide(context);
-            }),
-            _buildButton('模态进度条信息', () async {
-              ModalProgress.show(context, "加载中...");
-              timer = Timer.periodic(const Duration(seconds: 1),
-                  (Timer t) => ModalProgress.addstep(0.2));
-
-              await Future.delayed(const Duration(seconds: 6));
-              ModalProgress.hide(context);
-              timer?.cancel();
-            }),
-            _buildButton('App 更新', () async {
-              //     "https://github.com/whutpsychic/RTZL-fmct/raw/main/testapk2.apk",
-              AppUpdater.updateApp(context,
-                  "http://nxbhyt.cn:8280/exam/app/bhyt.apk", "fmct.apk");
-            }),
-            _buildButton('拨打电话: 139 8888 8888', () async {
-              PhoneCall.dial(context, "13988888888");
-            }),
-            _buildButton('在浏览器中打开某网页(百度)', () async {
-              LaunchInExplorer.at(context, "https://www.baidu.com");
-            }),
-          ],
+    // Android：当用户使用默认的后退手势时不应该直接跳出App，而是应该拦截此动作并运行 h5 的后退操作
+    // 当退无可退时不再响应
+    return WillPopScope(
+      onWillPop: () async {
+        _webViewController?.runJavascript("goback()");
+        return false;
+      },
+      child: SafeArea(
+        top: true,
+        bottom: true,
+        child: Scaffold(
+          body: WebView(
+            initialUrl: appUrl,
+            javascriptMode: JavascriptMode.unrestricted,
+            javascriptChannels: <JavascriptChannel>[
+              _serviceChannel(context),
+              _permissionChannel(context),
+            ].toSet(),
+            onWebViewCreated: (WebViewController webViewController) {
+              _webViewController = webViewController;
+              webViewController.loadUrl(appUrl);
+              webViewController.clearCache();
+            },
+            zoomEnabled: false,
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildButton(String text, Function function) {
-    return MaterialButton(
-      color: Colors.blue,
-      child: Text(
-        text,
-        style: const TextStyle(color: Colors.white),
-      ),
-      onPressed: () {
-        function();
-      },
-    );
-  }
+  // 创建 JavascriptChannel
+  // 预留的调用服务通道（直接发起动作）
+  JavascriptChannel _serviceChannel(BuildContext context) => JavascriptChannel(
+        name: 'call',
+        onMessageReceived: (JavascriptMessage msg) {
+          String mainInfo = msg.message;
+          // print(" ======================= ");
+          // print(mainInfo);
+          // print(" ======================= ");
+          // =================== 无参数调用 ===================
+          // 后退
+          if (mainInfo == "backup") {
+            Navigator.of(context).pop();
+          }
+          //
+          else if (mainInfo == "toast") {
+          }
+          // =================== 带参数调用 ===================
+          else {
+            List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
+            String _fnKey = infoArr[0];
+            if (_fnKey == "toast") {
+              Toast.show(context, infoArr[1]);
+            }
+          }
+        },
+      );
+
+  // 创建 JavascriptChannel
+  // 预留的权限请求通道
+  JavascriptChannel _permissionChannel(BuildContext context) =>
+      JavascriptChannel(
+        name: 'requestPermission',
+        onMessageReceived: (JavascriptMessage msg) {
+          String mainInfo = msg.message;
+          // print(" ======================= ");
+          // print(mainInfo);
+          // print(" ======================= ");
+          // 后退
+          if (mainInfo == "backup") {
+            Navigator.of(context).pop();
+          } else if (mainInfo == "xxxxs") {
+            Navigator.of(context).pop();
+          }
+        },
+      );
 }
