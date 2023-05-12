@@ -46,7 +46,7 @@ class _MyAppState extends State<App> {
               print(result);
             }),
             _buildButton('模态加载中提示', () async {
-              ModalLoading.show(context);
+              ModalLoading.show(context, "加载中...");
               await Future.delayed(const Duration(seconds: 3));
               ModalLoading.hide(context);
             }),
@@ -68,7 +68,7 @@ class _MyAppState extends State<App> {
               PhoneCall.dial(context, "13988888888");
             }),
             _buildButton('在浏览器中打开某网页(百度)', () async {
-              LaunchInExplorer.at(context, "https://www.baidu.com");
+              LaunchInExplorer.at(context, "https://www.baidu.com", true);
             }),
           ],
         ),

@@ -4,9 +4,11 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:fmct/service/Toast.dart';
 
 class LaunchInExplorer {
-  static Future<void> at(BuildContext context, String uri) async {
+  static Future<void> at(BuildContext context, String uri, bool inner) async {
     Uri url = Uri.parse(uri);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    if (!await launchUrl(url,
+        mode:
+            inner ? LaunchMode.inAppWebView : LaunchMode.externalApplication)) {
       Toast.show(context, "打开失败!");
     }
   }

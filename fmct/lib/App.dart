@@ -42,10 +42,10 @@ class _MyAppState extends State<App> {
           body: WebView(
             initialUrl: appUrl,
             javascriptMode: JavascriptMode.unrestricted,
-            javascriptChannels: <JavascriptChannel>[
+            javascriptChannels: <JavascriptChannel>{
               _serviceChannel(context),
               _permissionChannel(context),
-            ].toSet(),
+            },
             onWebViewCreated: (WebViewController webViewController) {
               _webViewController = webViewController;
               webViewController.loadUrl(appUrl);
@@ -62,25 +62,70 @@ class _MyAppState extends State<App> {
   // 预留的调用服务通道（直接发起动作）
   JavascriptChannel _serviceChannel(BuildContext context) => JavascriptChannel(
         name: 'call',
-        onMessageReceived: (JavascriptMessage msg) {
+        onMessageReceived: (JavascriptMessage msg) async {
           String mainInfo = msg.message;
           // print(" ======================= ");
           // print(mainInfo);
           // print(" ======================= ");
           // =================== 无参数调用 ===================
           // 后退
-          if (mainInfo == "backup") {
+          if (mainInfo == "backup" || mainInfo == "done") {
             Navigator.of(context).pop();
           }
           //
-          else if (mainInfo == "toast") {
+          else if (mainInfo == "xxxxxxx") {
           }
           // =================== 带参数调用 ===================
           else {
             List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
             String _fnKey = infoArr[0];
+            // 短提示
             if (_fnKey == "toast") {
               Toast.show(context, infoArr[1]);
+            }
+            // 模态提示
+            else if (_fnKey == "modalTips") {
+              String? res =
+                  await ModalTips.show(context, infoArr[1], infoArr[2]);
+              _webViewController?.runJavascript("modalTipsCallback('$res')");
+            }
+            // 模态确认询问
+            else if (_fnKey == "modalConfirm") {
+              String? res =
+                  await ModalConfirm.show(context, infoArr[1], infoArr[2]);
+              _webViewController?.runJavascript("modalConfirmCallback('$res')");
+            }
+            // 展示加载中
+            else if (_fnKey == "modalLoading") {
+              ModalLoading.show(context, infoArr[1]);
+            }
+            // 展示模态进度条
+            else if (_fnKey == "modalProgress") {
+              ModalProgress.show(context, infoArr[1]);
+            }
+            // 模态进度条值
+            else if (_fnKey == "modalProgressAdd") {
+              ModalProgress.addstep(double.parse(infoArr[1]));
+            }
+            // 模态进度条值
+            else if (_fnKey == "modalProgressSet") {
+              ModalProgress.setstep(double.parse(infoArr[1]));
+            }
+            // app 更新
+            else if (_fnKey == "appUpdate") {
+              AppUpdater.updateApp(context, infoArr[1], "fmct.apk");
+            }
+            // 拨打电话
+            else if (_fnKey == "phonecall") {
+              PhoneCall.dial(context, infoArr[1]);
+            }
+            // 在浏览器打开某网址
+            else if (_fnKey == "launchInExplorer") {
+              LaunchInExplorer.at(context, infoArr[1], false);
+            }
+            // 在 url_launcher 内嵌浏览器打开某网址
+            else if (_fnKey == "launchInnerExplorer") {
+              LaunchInExplorer.at(context, infoArr[1], true);
             }
           }
         },
@@ -97,11 +142,8 @@ class _MyAppState extends State<App> {
           // print(mainInfo);
           // print(" ======================= ");
           // 后退
-          if (mainInfo == "backup") {
-            Navigator.of(context).pop();
-          } else if (mainInfo == "xxxxs") {
-            Navigator.of(context).pop();
-          }
+          if (mainInfo == "xxxxxxxxx") {
+          } else if (mainInfo == "xxxxs") {}
         },
       );
 }

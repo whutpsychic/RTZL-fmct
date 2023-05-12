@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
 class ModalLoading {
-  static Future show(BuildContext context) async {
+  static Future show(BuildContext context, String content) async {
     if (Platform.isIOS) {
       // print('当前运行的平台是 iOS');
       showGeneralDialog(
@@ -14,9 +14,9 @@ class ModalLoading {
             scale: Tween<double>(begin: 0.9, end: 1.0).animate(a1),
             child: FadeTransition(
               opacity: Tween<double>(begin: 0.5, end: 1.0).animate(a1),
-              child: const CupertinoAlertDialog(
-                title: Text("加载中..."),
-                content: SizedBox(
+              child: CupertinoAlertDialog(
+                title: Text(content),
+                content: const SizedBox(
                   width: 100,
                   height: 50,
                   child: Center(
@@ -41,9 +41,9 @@ class ModalLoading {
       // print('当前运行的平台是 Android');
       return showDialog<String>(
         context: context,
-        builder: (BuildContext context) => const AlertDialog(
-          title: Text("加载中..."),
-          content: SizedBox(
+        builder: (BuildContext context) => AlertDialog(
+          title: Text(content),
+          content: const SizedBox(
             width: 100,
             height: 50,
             child: Center(
