@@ -2,7 +2,7 @@
 class Configure {
   // 调试模式
   // 会连接到本地网页进行调试
-  static const bool debugging = true;
+  static const bool debugging = false;
 }
 
 // 最终控制结果
@@ -18,7 +18,7 @@ class StaticConfig {
   // h5 调试时的本地运行地址
   static const String debuggingh5url = "http://192.168.1.33:8080";
   // h5 demo时的外部运行地址
-  static const String demoh5url = "http://192.168.1.33:8080";
+  static const String demoh5url = "https://whutpsychic.gitee.io/flutter-core";
 
   // 与 flutter-core 通讯时的参数分隔符
   static const String argsSpliter = "|_|";
