@@ -2,7 +2,7 @@
 class Configure {
   // 调试模式
   // 会连接到本地网页进行调试
-  static const bool debugging = false;
+  static const bool debugging = true;
 }
 
 // 最终控制结果

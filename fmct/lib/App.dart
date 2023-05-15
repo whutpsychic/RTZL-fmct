@@ -133,6 +133,14 @@ class _MyAppState extends State<App> {
             else if (_fnKey == "launchInnerExplorer") {
               LaunchInExplorer.at(context, infoArr[1], true);
             }
+            // 打开 App 设置（权限专用）
+            else if (mainInfo == "openAppSettings") {
+              bool result = await openAppSettings();
+              if (!result) {
+                ModalTips.show(
+                    context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
+              }
+            }
           }
         },
       );
@@ -150,13 +158,11 @@ class _MyAppState extends State<App> {
           // 相机/摄像头权限
           if (mainInfo == "camera") {
             PermissionStatus result = await Permission.camera.request();
-            print(result);
             _runJS("aprcamera('$result')");
           }
-          // 读写寻出权限
+          // 读写权限
           else if (mainInfo == "storage") {
             PermissionStatus result = await Permission.storage.request();
-            print(result);
             _runJS("aprstorage('$result')");
           }
         },
