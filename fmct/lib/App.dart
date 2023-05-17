@@ -78,8 +78,20 @@ class _MyAppState extends State<App> {
           if (mainInfo == "backup" || mainInfo == "done") {
             Navigator.of(context).pop();
           }
-          //
-          else if (mainInfo == "xxxxxxx") {
+          // 去扫码
+          else if (mainInfo == "scannerQR") {
+            String? res = await Scanner.doQRAction(context);
+            _runJS("scannerCallback('$res')");
+          }
+          // 去扫码
+          else if (mainInfo == "scannerBarcode") {
+            String? res = await Scanner.doBarcodeAction(context);
+            _runJS("scannerCallback('$res')");
+          }
+          // 混合扫码
+          else if (mainInfo == "scanner") {
+            String? res = await Scanner.doAction(context);
+            _runJS("scannerCallback('$res')");
           }
           // =================== 带参数调用 ===================
           else {
