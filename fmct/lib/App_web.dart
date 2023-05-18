@@ -78,8 +78,27 @@ class _MyAppState extends State<App> {
           if (mainInfo == "backup" || mainInfo == "done") {
             Navigator.of(context).pop();
           }
-          //
-          else if (mainInfo == "xxxxxxx") {
+          // 去扫码
+          else if (mainInfo == "scannerQR") {
+            String? res = await Scanner.doQRAction(context);
+            _runJS("scannerCallback('$res')");
+          }
+          // 去扫码
+          else if (mainInfo == "scannerBarcode") {
+            String? res = await Scanner.doBarcodeAction(context);
+            _runJS("scannerCallback('$res')");
+          }
+          // 混合扫码
+          else if (mainInfo == "scanner") {
+            String? res = await Scanner.doAction(context);
+            _runJS("scannerCallback('$res')");
+          }
+          // 打开 App 设置（权限专用）
+          else if (mainInfo == "openAppSettings") {
+            bool result = await openAppSettings();
+            if (!result) {
+              ModalTips.show(context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
+            }
           }
           // =================== 带参数调用 ===================
           else {
@@ -133,13 +152,14 @@ class _MyAppState extends State<App> {
             else if (_fnKey == "launchInnerExplorer") {
               LaunchInExplorer.at(context, infoArr[1], true);
             }
-            // 打开 App 设置（权限专用）
-            else if (mainInfo == "openAppSettings") {
-              bool result = await openAppSettings();
-              if (!result) {
-                ModalTips.show(
-                    context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
-              }
+            // 写入本地缓存数据
+            else if (_fnKey == "recordLocal") {
+              LocalStorage.setValue(infoArr[1], infoArr[2]);
+            }
+            // 读取本地缓存数据
+            else if (_fnKey == "readLocal") {
+              String? result = await LocalStorage.getValue(infoArr[1]);
+              _runJS("readLocalCallback('$result')");
             }
           }
         },
