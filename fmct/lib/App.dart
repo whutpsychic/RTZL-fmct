@@ -5,7 +5,7 @@ import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'appConfig.dart';
 import './utils/main.dart';
 
-import './channels/main.dart';
+import 'h5Channels/main.dart';
 
 late WebViewController? globalWebViewController;
 
