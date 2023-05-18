@@ -30,7 +30,9 @@ JavascriptChannel setAndroidChannel(BuildContext context) => JavascriptChannel(
             List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
             String _fnKey = infoArr[0];
             // 获取电量
-            if (_fnKey == "toast") {}
+            if (_fnKey == "toast") {
+              ToastChannel.show(infoArr[1]);
+            }
           }
         }
       },

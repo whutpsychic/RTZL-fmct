@@ -2,12 +2,15 @@ package com.rtzl.fmct;
 
 import android.os.BatteryManager;
 
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodChannel;
+
+import java.util.List;
 
 public class MainActivity extends FlutterActivity {
 
@@ -18,7 +21,7 @@ public class MainActivity extends FlutterActivity {
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
 
-        BinaryMessenger messager =  flutterEngine.getDartExecutor().getBinaryMessenger();
+        BinaryMessenger messager = flutterEngine.getDartExecutor().getBinaryMessenger();
 
         new MethodChannel(messager, CHANNEL_GETTER)
                 .setMethodCallHandler(
@@ -40,7 +43,9 @@ public class MainActivity extends FlutterActivity {
                         (call, result) -> {
                             if (call.method.equals("toast")) {
                                 // Display Toast info
-
+                                String content = (String) call.arguments;
+                                Toast toast = Toast.makeText(getBaseContext(), content, Toast.LENGTH_LONG);
+                                toast.show();
                             } else {
                                 result.notImplemented();
                             }
