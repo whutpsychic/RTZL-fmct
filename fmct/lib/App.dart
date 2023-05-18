@@ -29,17 +29,13 @@ class _MyAppState extends State<App> {
     super.dispose();
   }
 
-  void _runJS(String codeStr) {
-    globalWebViewController?.runJavascript("${Utils.getFnName()}$codeStr");
-  }
-
   @override
   Widget build(BuildContext context) {
     // Android：当用户使用默认的后退手势时不应该直接跳出App，而是应该拦截此动作并运行 h5 的后退操作
     // 当退无可退时不再响应
     return WillPopScope(
       onWillPop: () async {
-        _runJS("goback()");
+        Utils.runChannelJs(globalWebViewController, "goback()");
         return false;
       },
       child: Scaffold(

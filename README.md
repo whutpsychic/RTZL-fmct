@@ -5,9 +5,19 @@
 
 ### 创建命令
 
+fmct0
+
 ```
 flutter create --org com.rtzl fmct
 ```
+
+fmct
+
+``` flutter
+flutter create --org com.rtzl fmct -a java
+```
+
+
 
 ### 签名密钥
 
