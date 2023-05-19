@@ -1,8 +1,8 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fmct/service/main.dart';
 import 'package:permission_handler/permission_handler.dart';
+import './service/main.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);

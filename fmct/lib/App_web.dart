@@ -1,7 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
-import 'package:fmct/platformChannels/main.dart';
 
 import 'appConfig.dart';
 import './utils/main.dart';
