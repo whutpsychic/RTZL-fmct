@@ -17,11 +17,12 @@ class App extends StatefulWidget {
 }
 
 class _MyAppState extends State<App> {
-  final String appUrl = AppConfig.h5url;
-
   @override
   void initState() {
     super.initState();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      Navigator.of(context).pushNamed('/ipconfig');
+    });
   }
 
   @override
@@ -43,7 +44,7 @@ class _MyAppState extends State<App> {
           top: true,
           bottom: true,
           child: WebView(
-            initialUrl: appUrl,
+            initialUrl: "appUrl",
             javascriptMode: JavascriptMode.unrestricted,
             javascriptChannels: <JavascriptChannel>{
               // 服务通道
@@ -53,7 +54,8 @@ class _MyAppState extends State<App> {
               // 安卓原生服务通道
               setAndroidChannel(context),
             },
-            onWebViewCreated: (WebViewController webViewController) {
+            onWebViewCreated: (WebViewController webViewController) async {
+              final String appUrl = await AppConfig.getH5url();
               globalWebViewController = webViewController;
               webViewController.loadUrl(appUrl);
               webViewController.clearCache();

@@ -1,4 +1,6 @@
 // 控制阀
+import 'package:fmct/service/LocalStorage.dart';
+
 class Configure {
   // 调试模式
   // 会连接到本地网页进行调试
@@ -7,7 +9,18 @@ class Configure {
 
 // 最终控制结果
 class AppConfig {
-  // h5 地址
+  // h5 最终地址
+  static Future<String> getH5url() async {
+    String? url = await LocalStorage.getValue("serverUrl");
+    if (url != null) {
+      return url;
+    }
+    return Configure.debugging
+        ? StaticConfig.debuggingh5url
+        : StaticConfig.demoh5url;
+  }
+
+  // 默认的 h5 地址
   static String h5url = Configure.debugging
       ? StaticConfig.debuggingh5url
       : StaticConfig.demoh5url;

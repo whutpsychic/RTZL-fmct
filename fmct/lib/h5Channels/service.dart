@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import '../appConfig.dart';
 import '../service/main.dart';
 import '../utils/main.dart';
+import '../main.dart';
 import '../App.dart';
 
 // 创建 JavascriptChannel
@@ -47,65 +48,69 @@ JavascriptChannel serviceChannel(BuildContext context) => JavascriptChannel(
             ModalTips.show(context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
           }
         }
+        // 去往服务器 IP 设置界面
+        else if (mainInfo == "ipConfig") {
+          appPageKey.currentState?.ipConfig();
+        }
         // =================== 带参数调用 ===================
         else {
           List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
-          String _fnKey = infoArr[0];
+          String fnKey = infoArr[0];
           // 短提示
-          if (_fnKey == "toast") {
+          if (fnKey == "toast") {
             Toast.show(context, infoArr[1]);
           }
           // 模态提示
-          else if (_fnKey == "modalTips") {
+          else if (fnKey == "modalTips") {
             String? res = await ModalTips.show(context, infoArr[1], infoArr[2]);
             Utils.runChannelJs(
                 globalWebViewController, "modalTipsCallback('$res')");
           }
           // 模态确认询问
-          else if (_fnKey == "modalConfirm") {
+          else if (fnKey == "modalConfirm") {
             String? res =
                 await ModalConfirm.show(context, infoArr[1], infoArr[2]);
             Utils.runChannelJs(
                 globalWebViewController, "modalConfirmCallback('$res')");
           }
           // 展示加载中
-          else if (_fnKey == "modalLoading") {
+          else if (fnKey == "modalLoading") {
             ModalLoading.show(context, infoArr[1]);
           }
           // 展示模态进度条
-          else if (_fnKey == "modalProgress") {
+          else if (fnKey == "modalProgress") {
             ModalProgress.show(context, infoArr[1]);
           }
           // 模态进度条值
-          else if (_fnKey == "modalProgressAdd") {
+          else if (fnKey == "modalProgressAdd") {
             ModalProgress.addstep(double.parse(infoArr[1]));
           }
           // 模态进度条值
-          else if (_fnKey == "modalProgressSet") {
+          else if (fnKey == "modalProgressSet") {
             ModalProgress.setstep(double.parse(infoArr[1]));
           }
           // app 更新
-          else if (_fnKey == "appUpdate") {
+          else if (fnKey == "appUpdate") {
             AppUpdater.updateApp(context, infoArr[1], "fmct.apk");
           }
           // 拨打电话
-          else if (_fnKey == "phonecall") {
+          else if (fnKey == "phonecall") {
             PhoneCall.dial(context, infoArr[1]);
           }
           // 在浏览器打开某网址
-          else if (_fnKey == "launchInExplorer") {
+          else if (fnKey == "launchInExplorer") {
             LaunchInExplorer.at(context, infoArr[1], false);
           }
           // 在 url_launcher 内嵌浏览器打开某网址
-          else if (_fnKey == "launchInnerExplorer") {
+          else if (fnKey == "launchInnerExplorer") {
             LaunchInExplorer.at(context, infoArr[1], true);
           }
           // 写入本地缓存数据
-          else if (_fnKey == "recordLocal") {
+          else if (fnKey == "recordLocal") {
             LocalStorage.setValue(infoArr[1], infoArr[2]);
           }
           // 读取本地缓存数据
-          else if (_fnKey == "readLocal") {
+          else if (fnKey == "readLocal") {
             String? result = await LocalStorage.getValue(infoArr[1]);
             Utils.runChannelJs(
                 globalWebViewController, "readLocalCallback('$result')");
