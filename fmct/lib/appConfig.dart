@@ -1,10 +1,27 @@
 // 控制阀
-import 'package:fmct/service/LocalStorage.dart';
+import './service/LocalStorage.dart';
+
+enum AppMode { prodution, demo, dev }
 
 class Configure {
   // 调试模式
-  // 会连接到本地网页进行调试
+  // 会打开一些本不可被修改的设置途径
+  // ✔ 摇一摇设置 ip
   static const bool debugging = true;
+
+  // =================== demo 演示模式 ===================
+  // 可调节的设置应该全开
+  // 连接到演示模式下的外部环境
+  // ✔ 云上demo地址
+  // =================== dev 本地开发模式 ===================
+  // 可调节的设置应该全开
+  // 连接到本地开发环境
+  // ✔ 本地地址
+  // =================== production 产品模式 ===================
+  // 与任何可调节的设置断绝
+  // 连接到正式环境
+  // ✔ 云上正式地址
+  static const AppMode appMode = AppMode.prodution;
 }
 
 // 最终控制结果
@@ -15,23 +32,36 @@ class AppConfig {
     if (url != null) {
       return url;
     }
-    return Configure.debugging
-        ? StaticConfig.debuggingh5url
-        : StaticConfig.demoh5url;
+
+    switch (Configure.appMode) {
+      case AppMode.prodution:
+        return StaticConfig.productionH5url;
+      case AppMode.demo:
+        return StaticConfig.demoH5url;
+      case AppMode.dev:
+        return StaticConfig.devH5url;
+      default:
+        return StaticConfig.productionH5url;
+    }
   }
 
   // 默认的 h5 地址
-  static String h5url = Configure.debugging
-      ? StaticConfig.debuggingh5url
-      : StaticConfig.demoh5url;
+  static String h5url = Configure.appMode == AppMode.prodution
+      ? StaticConfig.productionH5url
+      : (Configure.appMode == AppMode.demo
+          ? StaticConfig.demoH5url
+          : (Configure.appMode == AppMode.dev ? StaticConfig.demoH5url : ""));
 }
 
 // 静态配置存储区
 class StaticConfig {
   // h5 调试时的本地运行地址
-  static const String debuggingh5url = "http://192.168.1.33:8080";
+  static const String devH5url = "http://192.168.1.33:8080";
   // h5 demo时的外部运行地址
-  static const String demoh5url = "https://whutpsychic.gitee.io/flutter-core";
+  static const String demoH5url = "https://whutpsychic.gitee.io/flutter-core";
+  // h5 产品运行时的地址
+  static const String productionH5url =
+      "https://whutpsychic.gitee.io/flutter-core";
 
   // 复杂化命名前缀
   static const String preName = "zflutter";
