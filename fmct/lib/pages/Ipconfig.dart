@@ -102,6 +102,8 @@ class _IpconfigState extends State<Ipconfig> {
       urlController.text = urlArr[0];
       if (urlArr.length > 1) {
         portController.text = urlArr[1];
+      } else {
+        portController.text = "";
       }
     });
     // 默认给结果
