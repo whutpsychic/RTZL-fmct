@@ -54,6 +54,8 @@ dependencies:
   easy_app_installer: ^1.0.0
   # 浏览器组件
   flutter_webview_pro: ^3.0.1+3
+  # 摇一摇时间监听模块
+  shake: ^2.2.0
 
 dev_dependencies:
   flutter_test:
