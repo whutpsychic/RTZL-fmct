@@ -23,13 +23,13 @@ JavascriptChannel serviceChannel(BuildContext context) => JavascriptChannel(
         if (mainInfo == "backup" || mainInfo == "done") {
           Navigator.of(context).pop();
         }
-        // 去扫码
+        // 去扫二维码
         else if (mainInfo == "scannerQR") {
           String? res = await Scanner.doQRAction(context);
           Utils.runChannelJs(
               globalWebViewController, "scannerCallback('$res')");
         }
-        // 去扫码
+        // 去扫条形码
         else if (mainInfo == "scannerBarcode") {
           String? res = await Scanner.doBarcodeAction(context);
           Utils.runChannelJs(

@@ -38,7 +38,7 @@ class _ScannerViewState extends State<ScannerView> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildScannerView(context)),
+          _buildScannerView(context),
           Positioned(
             top: 0,
             child: Container(
