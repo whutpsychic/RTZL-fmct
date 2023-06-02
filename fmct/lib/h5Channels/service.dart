@@ -52,6 +52,18 @@ JavascriptChannel serviceChannel(BuildContext context) => JavascriptChannel(
         else if (mainInfo == "ipConfig") {
           appPageKey.currentState?.ipConfig();
         }
+        // 检查网络连接
+        else if (mainInfo == "connectivityCheck") {
+          bool res = await NetworkInfo.check();
+          Utils.runChannelJs(
+              globalWebViewController, "connectivityCheckCallback($res)");
+        }
+        // 检查网络连接类型
+        else if (mainInfo == "connectionTypeCheck") {
+          String res = await NetworkInfo.checkType();
+          Utils.runChannelJs(
+              globalWebViewController, "connectionTypeCheckCallback('$res')");
+        }
         // =================== 带参数调用 ===================
         else {
           List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
