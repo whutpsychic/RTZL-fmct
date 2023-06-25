@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_pro/webview_flutter.dart';
 import 'package:shake/shake.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
+import './UIcomponents/NoNetwork.dart';
 
 import 'appConfig.dart';
 import './utils/main.dart';
@@ -77,25 +79,29 @@ class AppState extends State<App> {
               body: SafeArea(
                 top: true,
                 bottom: true,
-                child: WebView(
-                  initialUrl: _appUrl,
-                  javascriptMode: JavascriptMode.unrestricted,
-                  javascriptChannels: <JavascriptChannel>{
-                    // 服务通道
-                    serviceChannel(context),
-                    // 权限通道
-                    permissionChannel(context),
-                    // 安卓原生服务通道
-                    setAndroidChannel(context),
-                  },
-                  onWebViewCreated:
-                      (WebViewController webViewController) async {
-                    // final String appUrl = await AppConfig.getH5url();
-                    globalWebViewController = webViewController;
-                    webViewController.loadUrl(_appUrl);
-                    webViewController.clearCache();
-                  },
-                  zoomEnabled: false,
+                child: ConnectivityWidgetWrapper(
+                  disableInteraction: false,
+                  offlineWidget: const NoNetwork(),
+                  child: WebView(
+                    initialUrl: _appUrl,
+                    javascriptMode: JavascriptMode.unrestricted,
+                    javascriptChannels: <JavascriptChannel>{
+                      // 服务通道
+                      serviceChannel(context),
+                      // 权限通道
+                      permissionChannel(context),
+                      // 安卓原生服务通道
+                      setAndroidChannel(context),
+                    },
+                    onWebViewCreated:
+                        (WebViewController webViewController) async {
+                      // final String appUrl = await AppConfig.getH5url();
+                      globalWebViewController = webViewController;
+                      webViewController.loadUrl(_appUrl);
+                      webViewController.clearCache();
+                    },
+                    zoomEnabled: false,
+                  ),
                 ),
               ),
             ),

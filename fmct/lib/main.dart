@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:connectivity_wrapper/connectivity_wrapper.dart';
 import './App.dart';
 
 GlobalKey<AppState> appPageKey = GlobalKey();
@@ -12,16 +13,18 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      // home: const App(),
-      initialRoute: "/main",
-      routes: {
-        // web 主页
-        '/main': (context) => App(key: appPageKey),
-        // // 服务器地址配置页
-        // // 此页面可指定 web 主页的地址指向
-        // '/ipconfig': (context) => const Ipconfig(),
-      },
+    return ConnectivityAppWrapper(
+      app: MaterialApp(
+        home: App(key: appPageKey),
+        // initialRoute: "/main",
+        // routes: {
+        //   // web 主页
+        //   '/main': (context) => App(key: appPageKey),
+        //   // // 服务器地址配置页
+        //   // // 此页面可指定 web 主页的地址指向
+        //   // '/ipconfig': (context) => const Ipconfig(),
+        // },
+      ),
     );
   }
 }
