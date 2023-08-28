@@ -34,58 +34,61 @@ class _ScannerViewState extends State<ScannerQRView> {
   Widget build(BuildContext context) {
     final double topSafeHeight = MediaQuery.of(context).padding.top;
     final double deviceScreenWidth = MediaQuery.of(context).size.width;
-    const double topBarHeight = 80;
+    const double topBarHeight = 100;
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-          _buildScannerView(context),
-          Positioned(
-            top: 0,
-            child: Container(
-              color: const Color.fromRGBO(0, 0, 0, 1),
-              padding: EdgeInsets.only(top: topSafeHeight),
-              width: deviceScreenWidth,
-              height: topBarHeight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: topBarHeight,
-                      height: topBarHeight,
-                      child: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                        size: 24.0,
+      body: Container(
+        color: Colors.black,
+        child: Stack(
+          children: <Widget>[
+            _buildScannerView(context),
+            Positioned(
+              top: 0,
+              child: Container(
+                color: const Color.fromRGBO(0, 0, 0, 1),
+                padding: EdgeInsets.only(top: topSafeHeight, bottom: 20),
+                width: deviceScreenWidth,
+                height: topBarHeight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Navigator.of(context).pop(),
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: topBarHeight - 40,
+                        height: topBarHeight,
+                        child: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                          size: 24.0,
+                        ),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _openingLight = !_openingLight;
-                      });
-                      controller?.toggleFlash();
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: topBarHeight,
-                      height: topBarHeight,
-                      child: Icon(
-                        Icons.flashlight_on,
-                        color: _openingLight ? Colors.green : Colors.white,
-                        size: 24.0,
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _openingLight = !_openingLight;
+                        });
+                        controller?.toggleFlash();
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: topBarHeight - 40,
+                        height: topBarHeight,
+                        child: Icon(
+                          Icons.flashlight_on,
+                          color: _openingLight ? Colors.green : Colors.white,
+                          size: 24.0,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -59,10 +59,10 @@ JavascriptChannel serviceChannel(BuildContext context) => JavascriptChannel(
               globalWebViewController, "connectivityCheckCallback($res)");
         }
         // 检查网络连接类型
-        else if (mainInfo == "connectionTypeCheck") {
+        else if (mainInfo == "checkNetworkType") {
           String res = await NetworkInfo.checkType();
           Utils.runChannelJs(
-              globalWebViewController, "connectionTypeCheckCallback('$res')");
+              globalWebViewController, "checkNetworkTypeCallback('$res')");
         }
         // =================== 带参数调用 ===================
         else {

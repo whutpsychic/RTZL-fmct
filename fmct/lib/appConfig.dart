@@ -1,4 +1,5 @@
-// 控制阀
+// ================ 控制阀文件 ================
+// ==========================================
 import './service/LocalStorage.dart';
 
 enum AppMode { prodution, demo, dev }
@@ -50,13 +51,14 @@ class AppConfig {
       ? StaticConfig.productionH5url
       : (Configure.appMode == AppMode.demo
           ? StaticConfig.demoH5url
-          : (Configure.appMode == AppMode.dev ? StaticConfig.demoH5url : ""));
+          : (Configure.appMode == AppMode.dev ? StaticConfig.devH5url : ""));
 }
 
 // 静态配置存储区
 class StaticConfig {
   // h5 调试时的本地运行地址
-  static const String devH5url = "http://192.168.1.33:8080";
+  static const String devH5url = "http://192.168.1.33:8082"; // com-vue2
+  // static const String devH5url = "http://192.168.1.33:8080"; // vue3
   // h5 demo时的外部运行地址
   static const String demoH5url = "http://whutpsychic.gitee.io/flutter-core";
   // h5 产品运行时的地址
