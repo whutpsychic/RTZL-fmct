@@ -29,14 +29,14 @@ class AppState extends State<App> {
     super.initState();
     if (Configure.debugging) {
       // 监听摇一摇事件
-      ShakeDetector detector = ShakeDetector.autoStart(
+      ShakeDetector.autoStart(
         onPhoneShake: () async {
+          // Do stuff on phone shake
           String? result = await ModalConfirm.show(
               context, "您想要重新配置ip地址吗？", "通过配置 ip 来决定您将要访问的app地址");
           if (result == "true") {
             ipConfig();
           }
-          // Do stuff on phone shake
         },
         minimumShakeCount: 1,
         shakeSlopTimeMS: 500,
@@ -77,8 +77,8 @@ class AppState extends State<App> {
             },
             child: Scaffold(
               body: SafeArea(
-                top: true,
-                bottom: true,
+                top: false,
+                bottom: false,
                 child: ConnectivityWidgetWrapper(
                   disableInteraction: false,
                   offlineWidget: const NoNetwork(),
