@@ -96,6 +96,10 @@ JavascriptChannel serviceChannel(BuildContext context) => JavascriptChannel(
             SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
           }
         }
+        // 去拍照并返回照片（base64）
+        else if (mainInfo == "takePhoto") {
+          appPageKey.currentState?.takePhoto();
+        }
         // =================== 带参数调用 ===================
         else {
           List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);

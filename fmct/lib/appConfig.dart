@@ -57,10 +57,9 @@ class AppConfig {
 // 静态配置存储区
 class StaticConfig {
   // h5 调试时的本地运行地址
-  static const String devH5url = "http://192.168.1.33:8082"; // com-vue2
-  // static const String devH5url = "http://192.168.1.33:8080"; // vue3
+  static const String devH5url = "http://192.168.1.33:8082";
   // h5 demo时的外部运行地址
-  static const String demoH5url = "http://whutpsychic.gitee.io/flutter-core";
+  static const String demoH5url = "https://whutpsychic.gitee.io/rtlink-demoapp";
   // h5 产品运行时的地址
   static const String productionH5url =
       "http://whutpsychic.gitee.io/flutter-core";

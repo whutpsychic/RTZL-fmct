@@ -11,6 +11,7 @@ import './service/main.dart';
 
 import 'h5Channels/main.dart';
 import './pages/Ipconfig.dart';
+import './pages/CameraTakingPhoto.dart';
 
 late WebViewController? globalWebViewController;
 
@@ -62,6 +63,14 @@ class AppState extends State<App> {
       MaterialPageRoute(builder: (context) => const Ipconfig()),
     );
     globalWebViewController?.loadUrl(result);
+  }
+
+  // 去拍照取相片
+  void takePhoto() async {
+    final result = await Navigator.of(context).push(
+      MaterialPageRoute(builder: (context) => const TakingPhoto()),
+    );
+    Utils.runChannelJs(globalWebViewController, "takePhotoCallback('$result')");
   }
 
   @override
