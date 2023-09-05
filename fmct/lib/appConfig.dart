@@ -8,7 +8,7 @@ class Configure {
   // 调试模式
   // 会打开一些本不可被修改的设置途径
   // ✔ 摇一摇设置 ip
-  static const bool debugging = true;
+  static const bool debugging = false;
 
   // =================== demo 演示模式 ===================
   // 可调节的设置应该全开
@@ -22,7 +22,7 @@ class Configure {
   // 与任何可调节的设置断绝
   // 连接到正式环境
   // ✔ 云上正式地址
-  static const AppMode appMode = AppMode.dev;
+  static const AppMode appMode = AppMode.demo;
 }
 
 // 最终控制结果
