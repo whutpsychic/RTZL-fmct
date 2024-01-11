@@ -41,6 +41,12 @@ beijing
 CN
 ```
 
+### 文件备注
+
+- fmct0 —— 旧版的纯flutter框架。
+- fmct1 —— 使用 webview-pro 的框架。
+- fmct —— 当前正在使用的最新版框架。
+
 
 
 

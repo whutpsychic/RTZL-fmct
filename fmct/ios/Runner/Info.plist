@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>瑞太微办公</string>
+	<string>Fmct</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -41,22 +41,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
-	<!-- url_launcher -->
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-  	<string>sms</string>
-  	<string>tel</string>
-	</array>
-	<!-- camera & photo -->
-	<key>NSCameraUsageDescription</key>
-	<string>我们需要访问您的照相机才能拍摄照片，拍摄的照片仅用于上传，并且我们保证不会泄漏您的隐私</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>我们需要访问您的相册才能选择已有照片，选择的照片仅用于上传，并且我们保证不会泄漏您的隐私</string>
 </dict>
 </plist>

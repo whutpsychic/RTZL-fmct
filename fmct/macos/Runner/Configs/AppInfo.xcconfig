@@ -11,4 +11,4 @@ PRODUCT_NAME = fmct
 PRODUCT_BUNDLE_IDENTIFIER = com.rtzl.fmct
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2023 com.rtzl. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.rtzl. All rights reserved.
