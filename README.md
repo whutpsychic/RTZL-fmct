@@ -43,9 +43,17 @@ CN
 
 ### 文件备注
 
-- fmct0 —— 旧版的纯flutter框架。
-- fmct1 —— 使用 webview-pro 的框架。
-- fmct —— 当前正在使用的最新版框架。
+- flutter_webview_pro —— 以 flutter_webview_pro 为核心的框架。
+
+  【缺点】小众非主流第三方库，可能会不及时更新，不是很可靠。
+
+- webview_flutter —— 以 flutter_webview_pro 为核心的框架。
+
+  【优点】库由官方大团队维护，非常可靠，但是<input type="file" />的问题迟迟得不到有效解决。
+
+- fmct —— 当前正在使用的最新版框架以 [flutter_inappwebview](https://pub.dev/packages/flutter_inappwebview)为核心的框架。
+
+  【理由】库由大三方团队维护，多数 likes，更可靠。
 
 
 
