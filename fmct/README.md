@@ -1,6 +1,6 @@
 # fmct
 
-A new Flutter project.
+瑞太智联的 Flutter project.
 
 ## Getting Started
 
