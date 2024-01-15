@@ -31,10 +31,47 @@ dependencies:
   flutter:
     sdk: flutter
 
-
+  # ======= 官方/高信赖度三方模块(2000+likes / verified author) =======
+  # 浏览器组件
+  # @inappwebview.dev
+  flutter_inappwebview: ^6.0.0
+  # 权限请求模块
+  # @baseflow.com
+  permission_handler: ^11.1.0
+  # 网络请求模块
+  # @flutter.cn
+  dio: ^5.4.0
+  # 地址跳转模块
+  # 可用于唤醒其他 app 
+  # @flutter.dev
+  url_launcher: ^6.2.3
+  # 本地数据缓存模块
+  # @flutter.dev
+  shared_preferences: ^2.2.2
+  # 照相机/图片选择
+  # @flutter.dev
+  image_picker: ^1.0.7
+ 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  # ======= 中信赖度三方模块 =======
+  # 1600+ likes
+  # 扫码模块
+  qr_code_scanner: ^1.0.1
+
+  # ======= 低信赖度三方模块 =======
+  # 下载安装 apk 文件模块
+  easy_app_installer: ^1.0.0
+
+  # 摇一摇事件监听模块
+  # @joshi.dev
+  shake: ^2.2.0
+  # 网络状态监测插件
+  # @dart.nonstopio.com
+  connectivity_wrapper: ^1.1.4
+  # 手机震动
+  vibration: ^1.8.3
 
 dev_dependencies:
   flutter_test:
@@ -59,9 +96,8 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/image/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
