@@ -13,7 +13,9 @@ class AppUpdater {
   static final Uri _url = Uri.parse(StaticConfig.updateAppStoreUrl);
 
   static Future<void> _launchUrl(BuildContext context) async {
-    if (!await launchUrl(_url)) {
+    bool result = await launchUrl(_url);
+    if (!result) {
+      if (!context.mounted) return;
       Toast.show(context, "更新失败!");
     }
   }
@@ -37,14 +39,15 @@ class AppUpdater {
           if (progress < 100) {
             ModalProgress.setstep(progress / 100);
           } else {
+            // 关掉模态下载进度条弹窗
             Navigator.of(context).pop();
+            // 提示下载成功
             Toast.show(context, "下载成功");
           }
         },
         onCancelTagListener: (tag) {
           // 下载失败时
           Navigator.of(context).pop();
-          Toast.show(context, "已经是最新版本了");
         },
       );
     }

@@ -56,10 +56,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   # ======= 中信赖度三方模块 =======
-  # 1600+ likes
+  # 1300+ likes
   # 扫码模块
-  qr_code_scanner: ^1.0.1
-
+  # 反应更灵敏
+  # @steenbakker.dev
+  mobile_scanner: 3.5.5
   # ======= 低信赖度三方模块 =======
   # 下载安装 apk 文件模块
   easy_app_installer: ^1.0.0

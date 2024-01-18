@@ -36,7 +36,9 @@ class _TakingPhotoState extends State<TakingPhoto> {
         Navigator.of(context).pop();
       }
     } catch (err) {
-      print(err);
+      if (kDebugMode) {
+        print(err);
+      }
     }
   }
 
