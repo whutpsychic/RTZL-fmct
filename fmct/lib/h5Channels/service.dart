@@ -42,35 +42,30 @@ void registerServiceChannel(
     String? res = await Scanner.doAction(context);
     await port.postMessage(WebMessage(data: "scanner('$res')"));
   }
-  // 打开 App 设置（权限专用）
+  // 打开 App 设置（权限专用）✔
   else if (fnKey == "openAppSettings") {
     bool result = await openAppSettings();
     if (!result) {
       ModalTips.show(context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
     }
   }
-  // 去往服务器 IP 设置界面
+  // 去往服务器 IP 设置界面✔
   else if (fnKey == "ipConfig") {
-    // appPageKey.currentState?.ipConfig();
+    appPageKey.currentState?.ipConfig();
   }
-  // 检查网络连接
-  else if (fnKey == "connectivityCheck") {
-    bool res = await NetworkInfo.check();
-    await port.postMessage(WebMessage(data: "connectivityCheck($res)"));
-  }
-  // 检查网络连接类型
+  // 检查网络连接类型✔
   else if (fnKey == "checkNetworkType") {
     String res = await NetworkInfo.checkType();
     await port.postMessage(WebMessage(data: "checkNetworkType('$res')"));
   }
-  // 获取当前设备的 safeHeight [top, bottom]
+  // 获取当前设备的 safeHeight [top, bottom]✔
   else if (fnKey == "getSafeHeight") {
     double top = MediaQuery.of(context).padding.top;
     double bottom = MediaQuery.of(context).padding.bottom;
     List<double> res = [top, bottom];
     await port.postMessage(WebMessage(data: "getSafeHeight($res)"));
   }
-  // 设置顶部条为深色风格
+  // 设置顶部条为深色风格✔
   else if (fnKey == "setTopbarStyleToDark") {
     if (Platform.isAndroid) {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -81,7 +76,7 @@ void registerServiceChannel(
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
   }
-  // 设置顶部条为浅色风格
+  // 设置顶部条为浅色风格✔
   else if (fnKey == "setTopbarStyleToLight") {
     if (Platform.isAndroid) {
       SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -92,11 +87,11 @@ void registerServiceChannel(
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     }
   }
-  // 去拍照并返回照片（base64）
+  // 去拍照并返回照片（base64）✔
   else if (fnKey == "takePhoto") {
-    // appPageKey.currentState?.takePhoto();
+    appPageKey.currentState?.takePhoto();
   }
-  // 颤动(按键手触觉)
+  // 颤动(按键手触觉)✔
   else if (fnKey == 'heavyImpact') {
     HapticFeedback.heavyImpact();
   }

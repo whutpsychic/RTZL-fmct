@@ -1,29 +1,29 @@
-// // ignore_for_file: file_names, use_build_context_synchronously
-// import 'package:flutter/material.dart';
-// import 'package:flutter_webview_pro/webview_flutter.dart';
-// import 'package:permission_handler/permission_handler.dart';
+// ignore_for_file: file_names, use_build_context_synchronously
+import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-// import '../utils/main.dart';
-// import '../App.dart';
+import '../appConfig.dart';
 
-// // 创建 JavascriptChannel
-// // 预留的权限请求通道
-// JavascriptChannel permissionChannel(BuildContext context) => JavascriptChannel(
-//       name: '${Utils.getFnName()}requestPermission',
-//       onMessageReceived: (JavascriptMessage msg) async {
-//         String mainInfo = msg.message;
-//         // print(" ======================= ");
-//         // print(mainInfo);
-//         // print(" ======================= ");
-//         // 相机/摄像头权限
-//         if (mainInfo == "camera") {
-//           PermissionStatus result = await Permission.camera.request();
-//           Utils.runChannelJs(globalWebViewController, "aprcamera('$result')");
-//         }
-//         // 读写权限
-//         else if (mainInfo == "storage") {
-//           PermissionStatus result = await Permission.storage.request();
-//           Utils.runChannelJs(globalWebViewController, "aprstorage('$result')");
-//         }
-//       },
-//     );
+// 创建 JavascriptChannel
+// 预留的权限请求通道
+void registerPermissionChannel(
+    BuildContext context, WebMessagePort port, WebMessage? message) async {
+  String? mainInfo = message?.data;
+  if (mainInfo == null) {
+    return;
+  }
+  List<String> infoArr = mainInfo.split(StaticConfig.argsSpliter);
+  String fnKey = infoArr[0];
+  // =================== 无参数调用 ===================
+  // 相机/摄像头权限✔
+  if (fnKey == "camera") {
+    PermissionStatus result = await Permission.camera.request();
+    await port.postMessage(WebMessage(data: "aprcamera('$result')"));
+  }
+  // 读写权限✔
+  else if (fnKey == "storage") {
+    PermissionStatus result = await Permission.storage.request();
+    await port.postMessage(WebMessage(data: "aprstorage('$result')"));
+  }
+}

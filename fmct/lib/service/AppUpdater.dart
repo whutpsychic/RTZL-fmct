@@ -28,7 +28,7 @@ class AppUpdater {
     }
     // 其余按照Android处理
     else {
-      ModalProgress.show(context, "正在下载更新...");
+      await ModalProgress.show(context, "正在下载更新...");
       // fileUrl 需替换为指定apk地址
       await EasyAppInstaller.instance.downloadAndInstallApk(
         fileUrl: url,
@@ -45,10 +45,7 @@ class AppUpdater {
             Toast.show(context, "下载成功");
           }
         },
-        onCancelTagListener: (tag) {
-          // 下载失败时
-          Navigator.of(context).pop();
-        },
+        onCancelTagListener: (tag) {},
       );
     }
   }

@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shake/shake.dart';
 
 import './service/main.dart';
@@ -25,11 +24,6 @@ Future main() async {
   if (!kIsWeb && defaultTargetPlatform == TargetPlatform.android) {
     await InAppWebViewController.setWebContentsDebuggingEnabled(kDebugMode);
   }
-
-  // 权限获取
-  // await Permission.camera.request();
-  // await Permission.storage.request();
-  // await Permission.microphone.request();
 
   runApp(MaterialApp(home: MyApp(key: appPageKey)));
 }
@@ -113,7 +107,7 @@ class MyAppState extends State<MyApp> {
     final result = await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const TakingPhoto()),
     );
-    flutterPort.postMessage(WebMessage(data: "takePhotoCallback('$result')"));
+    flutterPort.postMessage(WebMessage(data: "takePhoto('$result')"));
   }
 
   @override
@@ -206,10 +200,9 @@ class MyAppState extends State<MyApp> {
 
                               // 注册所有服务接口
                               registerServiceChannel(context, port1, message);
-
-                              // when it receives a message from the JavaScript side, respond back with another message.
-                              // await port1
-                              //     .postMessage(WebMessage(data: "$message and back"));
+                              // 注册权限接口
+                              registerPermissionChannel(
+                                  context, port1, message);
                             });
 
                             // transfer port2 to the webpage to initialize the communication

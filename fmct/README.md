@@ -1,6 +1,6 @@
 # fmct
 
-瑞太智联的 Flutter project.
+瑞太智联的 Flutter project. Flutter Mobile Common Template.
 
 ## Getting Started
 
