@@ -15,7 +15,11 @@ class _ScannerViewState extends State<ScannerBarcodeView>
   final MobileScannerController controller = MobileScannerController(
       torchEnabled: false,
       // useNewCameraSelector: true,
-      formats: [BarcodeFormat.codebar],
+      formats: [
+        BarcodeFormat.code128,
+        BarcodeFormat.code39,
+        BarcodeFormat.code93
+      ],
       facing: CameraFacing.back,
       detectionSpeed: DetectionSpeed.normal
       // detectionTimeoutMs: 1000,
