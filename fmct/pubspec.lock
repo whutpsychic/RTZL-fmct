@@ -50,7 +50,7 @@ packages:
     source: hosted
     version: "1.18.0"
   connectivity_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: connectivity_plus
       sha256: "224a77051d52a11fbad53dd57827594d3bd24f945af28bd70bab376d68d437f0"
@@ -65,14 +65,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.2.4"
-  connectivity_wrapper:
-    dependency: "direct main"
-    description:
-      name: connectivity_wrapper
-      sha256: "41cf17c525b109f96c11dd20b96a2a0b7f745ed14e6e84dc9cc3ae4202d53358"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.1.4"
   cross_file:
     dependency: transitive
     description:
@@ -408,22 +400,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.4"
-  mobile_scanner:
-    dependency: "direct main"
-    description:
-      name: mobile_scanner
-      sha256: c3e5bba1cb626b6ab4fc46610f72a136803f6854267967e19f4a4a6a31ff9b74
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "3.5.5"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "1.0.0"
   nm:
     dependency: transitive
     description:
@@ -516,10 +492,10 @@ packages:
     dependency: transitive
     description:
       name: petitparser
-      sha256: cb3798bef7fc021ac45b308f4b51208a152792445cce0448c9a4ba5879dd8750
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.4.0"
+    version: "6.0.2"
   platform:
     dependency: transitive
     description:
@@ -536,14 +512,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.8"
-  provider:
-    dependency: transitive
+  qr_code_scanner:
+    dependency: "direct main"
     description:
-      name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
+      name: qr_code_scanner
+      sha256: f23b68d893505a424f0bd2e324ebea71ed88465d572d26bb8d2e78a4749591fd
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.1.1"
+    version: "1.0.1"
   sensors_plus:
     dependency: transitive
     description:
@@ -809,10 +785,10 @@ packages:
     dependency: transitive
     description:
       name: xml
-      sha256: "5bc72e1e45e941d825fd7468b9b4cc3b9327942649aeb6fc5cdbf135f0a86e84"
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.3.0"
+    version: "6.5.0"
 sdks:
   dart: ">=3.2.3 <4.0.0"
   flutter: ">=3.16.0"
