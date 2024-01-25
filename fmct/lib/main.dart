@@ -5,6 +5,7 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shake/shake.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_sound/flutter_sound.dart';
 
 import './service/main.dart';
 import './h5Channels/main.dart';
@@ -64,12 +65,19 @@ class MyAppState extends State<MyApp> {
   // 当前网络连接情况
   ConnectStateType ctype = ConnectStateType.none;
 
+  // 声音播放器
+
   @override
   void initState() {
     super.initState();
     _loadH5();
     _shakeToConfigureUrl();
     _listenNetChange();
+    _initSoundPlayer();
+  }
+
+  void _initSoundPlayer() {
+    Beep.init();
   }
 
   void setAppRenderType(bool ifImmersed) {

@@ -9,3 +9,4 @@ export './ModalProgress.dart';
 export './PhoneCall.dart';
 export './Scanner.dart';
 export './Toast.dart';
+export './Beep.dart';

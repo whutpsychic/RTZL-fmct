@@ -54,6 +54,9 @@ dependencies:
   # 网络状态监测插件
   # @publisherfluttercommunity.dev
   connectivity_plus: ^5.0.2
+  # # 一个 Flutter 插件，用于查找文件系统上的常用位置。
+  # # @flutter.dev
+  # path_provider: ^2.1.2
  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -64,10 +67,12 @@ dependencies:
   qr_code_scanner: ^1.0.1
   # 1300+ likes
   # 扫码模块
-  # 反应更灵敏
+  # 反应更灵敏，但是目前仅Android可用，iOS打包始终失败
   # @steenbakker.dev
-  # 目前仅Android可用，iOS打包始终失败
   # mobile_scanner: 3.5.5
+  # 1300+ likes
+  # 播放/录制音频模块
+  flutter_sound: ^9.2.13
   # ======= 低信赖度三方模块 =======
   # 下载安装 apk 文件模块
   easy_app_installer: ^1.0.0
@@ -80,6 +85,8 @@ dependencies:
   # connectivity_wrapper: ^1.1.4
   # 手机震动
   vibration: ^1.8.3
+  audio_session: ^0.1.18
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -106,6 +113,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/image/
+    - assets/sound/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
