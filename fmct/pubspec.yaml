@@ -59,7 +59,7 @@ dependencies:
   # path_provider: ^2.1.2
   # 一个用于播放声音的组件
   # @ryanheise.com
-  # just_audio: ^0.9.36
+  just_audio: ^0.9.36
  
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

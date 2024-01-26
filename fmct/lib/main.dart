@@ -6,7 +6,6 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart'
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shake/shake.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-// import 'package:just_audio/just_audio.dart';
 
 import './service/main.dart';
 import './h5Channels/main.dart';
@@ -76,23 +75,15 @@ class MyAppState extends State<MyApp> {
   // 当前网络连接情况
   ConnectStateType ctype = ConnectStateType.none;
 
-  // 声音播放器
-  // final AudioPlayer audioPlayer = AudioPlayer();
-
   @override
   void initState() {
     super.initState();
     _listenNetChange();
-    _initAudioPlayer();
     // 仅调试时有的逻辑
     if (kDebugMode) {
       _shakeToConfigureUrl();
     }
     _loadH5();
-  }
-
-  void _initAudioPlayer() {
-    Beep.init();
   }
 
   void setAppRenderType(bool ifImmersed) {
@@ -183,11 +174,6 @@ class MyAppState extends State<MyApp> {
 
   // 构建主显示口
   Widget _buildMainView() {
-    // String targetH5Url = h5url ??
-    //     (Configure.appMode == AppMode.dev
-    //         ? StaticConfig.devH5url
-    //         : StaticConfig.productionH5url);
-
     return Column(
       children: <Widget>[
         Expanded(

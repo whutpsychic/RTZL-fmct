@@ -1,34 +1,23 @@
 // ignore_for_file: file_names
-import 'package:flutter/services.dart';
-// import 'package:flutter_sound/flutter_sound.dart';
+import 'package:just_audio/just_audio.dart';
 
-// FlutterSoundPlayer mPlayer = FlutterSoundPlayer();
-bool hasInited = false;
-// bool busy = false;
+bool busy = false;
 
 class Beep {
-  // static Future<Uint8List> getAssetData(String path) async {
-  //   var asset = await rootBundle.load(path);
-  //   return asset.buffer.asUint8List();
-  // }
+  AudioPlayer audioPlayer = AudioPlayer();
 
-  static void init() async {
-    // await mPlayer.openPlayer();
-    hasInited = true;
+  Future<Beep> init() async {
+    await audioPlayer.setAsset('assets/sound/y2181.mp3');
+    return this;
   }
 
-  // static void play() async {
-  //   if (!hasInited || busy) {
-  //     return;
-  //   }
-  //   busy = true;
-  //   Uint8List sounder = await getAssetData('assets/sound/y2181.mp3');
-  //   mPlayer.startPlayer(
-  //     fromDataBuffer: sounder,
-  //     codec: Codec.mp3,
-  //     whenFinished: () {
-  //       busy = false;
-  //     },
-  //   );
-  // }
+  void play() async {
+    if (busy) {
+      return;
+    }
+    busy = true;
+    audioPlayer.play().then((value) {
+      busy = false;
+    });
+  }
 }
