@@ -1,4 +1,6 @@
 PODS:
+  - audio_session (0.0.1):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
@@ -16,8 +18,13 @@ PODS:
     - OrderedSet (~> 5.0)
   - image_picker_ios (0.0.1):
     - Flutter
+  - just_audio (0.0.1):
+    - Flutter
   - MTBBarcodeScanner (5.0.11)
   - OrderedSet (5.0.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - permission_handler_apple (9.1.1):
     - Flutter
   - qr_code_scanner (0.2.0):
@@ -35,12 +42,15 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - audio_session (from `.symlinks/plugins/audio_session/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - easy_app_installer (from `.symlinks/plugins/easy_app_installer/ios`)
   - Flutter (from `Flutter`)
   - flutter_inappwebview_ios (from `.symlinks/plugins/flutter_inappwebview_ios/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - just_audio (from `.symlinks/plugins/just_audio/ios`)
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - qr_code_scanner (from `.symlinks/plugins/qr_code_scanner/ios`)
   - sensors_plus (from `.symlinks/plugins/sensors_plus/ios`)
@@ -55,6 +65,8 @@ SPEC REPOS:
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
+  audio_session:
+    :path: ".symlinks/plugins/audio_session/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   device_info_plus:
@@ -67,6 +79,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview_ios/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  just_audio:
+    :path: ".symlinks/plugins/just_audio/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/darwin"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
   qr_code_scanner:
@@ -81,14 +97,17 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/vibration/ios"
 
 SPEC CHECKSUMS:
+  audio_session: 4f3e461722055d21515cf3261b64c973c062f345
   connectivity_plus: bf0076dd84a130856aa636df1c71ccaff908fa1d
   device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
   easy_app_installer: 29abe397da7d86721fee853281202f414373f45c
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_inappwebview_ios: 97215cf7d4677db55df76782dbd2930c5e1c1ea0
   image_picker_ios: 99dfe1854b4fa34d0364e74a78448a0151025425
+  just_audio: baa7252489dbcf47a4c7cc9ca663e9661c99aafa
   MTBBarcodeScanner: f453b33c4b7dfe545d8c6484ed744d55671788cb
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
+  path_provider_foundation: 3784922295ac71e43754bd15e0653ccfd36a147c
   permission_handler_apple: e76247795d700c14ea09e3a2d8855d41ee80a2e6
   qr_code_scanner: bb67d64904c3b9658ada8c402e8b4d406d5d796e
   ReachabilitySwift: 985039c6f7b23a1da463388634119492ff86c825
@@ -97,6 +116,6 @@ SPEC CHECKSUMS:
   url_launcher_ios: bbd758c6e7f9fd7b5b1d4cde34d2b95fcce5e812
   vibration: 7d883d141656a1c1a6d8d238616b2042a51a1241
 
-PODFILE CHECKSUM: 39a562b3c257d381bf3faebebef371e1c8d31b83
+PODFILE CHECKSUM: 3ba839949157eee13cca268616398f47ec65a741
 
 COCOAPODS: 1.14.3

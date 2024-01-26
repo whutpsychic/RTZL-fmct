@@ -1,16 +1,18 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart'
+    hide LocalStorage;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shake/shake.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_sound/flutter_sound.dart';
+// import 'package:just_audio/just_audio.dart';
 
 import './service/main.dart';
 import './h5Channels/main.dart';
 import './pages/Ipconfig.dart';
 import './pages/CameraTakingPhoto.dart';
+import './pages/Welcome.dart';
 
 import './appConfig.dart';
 
@@ -30,9 +32,18 @@ Future main() async {
     await InAppWebViewController.setWebContentsDebuggingEnabled(kDebugMode);
   }
 
-  runApp(MaterialApp(home: MyApp(key: appPageKey)));
+  String? isInitLoad = await LocalStorage.getValue('isInitLoad');
+
+  // 首次运行，需前往欢迎
+  if (isInitLoad == null) {
+    await LocalStorage.setValue('isInitLoad', 'true');
+    runApp(const MaterialApp(home: Welcome()));
+  } else {
+    runApp(MaterialApp(home: MyApp(key: appPageKey)));
+  }
 }
 
+// 主程序
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -58,7 +69,7 @@ class MyAppState extends State<MyApp> {
       // Set to true if the <iframe> can activate fullscreen mode by calling the requestFullscreen() method.
       iframeAllowFullscreen: true);
 
-  late String h5url = '';
+  String h5url = '';
   late WebMessagePort flutterPort;
   // 沉浸式渲染控制键
   ValueListenable<bool> immersed = ValueNotifier(true);
@@ -66,17 +77,21 @@ class MyAppState extends State<MyApp> {
   ConnectStateType ctype = ConnectStateType.none;
 
   // 声音播放器
+  // final AudioPlayer audioPlayer = AudioPlayer();
 
   @override
   void initState() {
     super.initState();
-    _loadH5();
-    _shakeToConfigureUrl();
     _listenNetChange();
-    _initSoundPlayer();
+    _initAudioPlayer();
+    // 仅调试时有的逻辑
+    if (kDebugMode) {
+      _shakeToConfigureUrl();
+    }
+    _loadH5();
   }
 
-  void _initSoundPlayer() {
+  void _initAudioPlayer() {
     Beep.init();
   }
 
@@ -88,23 +103,21 @@ class MyAppState extends State<MyApp> {
 
   // 摇一摇配置地址
   _shakeToConfigureUrl() {
-    if (kDebugMode) {
-      // 监听摇一摇事件
-      ShakeDetector.autoStart(
-        onPhoneShake: () async {
-          // Do stuff on phone shake
-          String? result = await ModalConfirm.show(
-              context, "您想要重新配置ip地址吗？", "通过配置 ip 来决定您将要访问的app地址");
-          if (result == "true") {
-            ipConfig();
-          }
-        },
-        minimumShakeCount: 1,
-        shakeSlopTimeMS: 500,
-        shakeCountResetTime: 3000,
-        shakeThresholdGravity: 2.7,
-      );
-    }
+    // 监听摇一摇事件
+    ShakeDetector.autoStart(
+      onPhoneShake: () async {
+        // Do stuff on phone shake
+        String? result = await ModalConfirm.show(
+            context, "您想要重新配置ip地址吗？", "通过配置 ip 来决定您将要访问的app地址");
+        if (result == "true") {
+          ipConfig();
+        }
+      },
+      minimumShakeCount: 1,
+      shakeSlopTimeMS: 500,
+      shakeCountResetTime: 3000,
+      shakeThresholdGravity: 2.7,
+    );
   }
 
   _loadH5() async {
@@ -170,6 +183,11 @@ class MyAppState extends State<MyApp> {
 
   // 构建主显示口
   Widget _buildMainView() {
+    // String targetH5Url = h5url ??
+    //     (Configure.appMode == AppMode.dev
+    //         ? StaticConfig.devH5url
+    //         : StaticConfig.productionH5url);
+
     return Column(
       children: <Widget>[
         Expanded(
@@ -187,6 +205,7 @@ class MyAppState extends State<MyApp> {
               initialSettings: settings,
               onWebViewCreated: (controller) {
                 webViewController = controller;
+                // _loadH5();
               },
               onLoadStart: (controller, url) {},
               onPermissionRequest: (controller, request) async {
@@ -221,9 +240,11 @@ class MyAppState extends State<MyApp> {
               },
               onLoadStop: (controller, url) async {
                 // 加载完毕后记录当前web地址
-                setState(() {
-                  h5url = url.toString();
-                });
+                if (!(h5url == '')) {
+                  setState(() {
+                    h5url = url.toString();
+                  });
+                }
                 // 仅android或者支持创建 web message 通道的平台生效
                 if (defaultTargetPlatform != TargetPlatform.android ||
                     await WebViewFeature.isFeatureSupported(

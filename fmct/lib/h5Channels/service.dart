@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     hide LocalStorage;
 import 'package:vibration/vibration.dart';
-import 'package:flutter_sound/flutter_sound.dart';
+// import 'package:flutter_sound/flutter_sound.dart';
 
 import '../appConfig.dart';
 import '../service/main.dart';
@@ -99,7 +99,7 @@ void registerServiceChannel(
   }
   // 播放提示音
   else if (fnKey == 'beep') {
-    Beep.play();
+    // Beep.play();
   }
   // 将App设置为全屏渲染(沉浸式)
   else if (fnKey == 'immersed') {
