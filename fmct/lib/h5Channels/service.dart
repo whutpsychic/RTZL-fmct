@@ -1,6 +1,6 @@
 // ignore_for_file: file_names, use_build_context_synchronously
 import 'dart:io';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter/services.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
@@ -183,6 +183,23 @@ void registerServiceChannel(
           Vibration.vibrate();
         }
       }
+    }
+    // 即时通知
+    else if (fnKey == "notification") {
+      // 参数提取
+      String title = infoArr[1];
+      String content = infoArr[2];
+
+      Notification.show(notification, title, content);
+    }
+    // 定时通知
+    else if (fnKey == "periodNotification") {
+      // 参数提取
+      String title = infoArr[1];
+      String content = infoArr[2];
+      int timer = int.parse(infoArr[3]);
+
+      Notification.periodShow(notification, title, content, timer);
     }
   }
 }

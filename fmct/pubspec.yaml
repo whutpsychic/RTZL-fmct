@@ -31,65 +31,61 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # ======= 官方/高信赖度三方模块(2000+likes / verified author) =======
-  # 浏览器组件
+  # ======= 官方/高信赖度三方模块(verified author / Flutter Favorite) =======
+  # ------ 浏览器组件 ------
   # @inappwebview.dev
   flutter_inappwebview: ^6.0.0
-  # 权限请求模块
+  # ------ 权限请求模块 ------
   # @baseflow.com
   permission_handler: ^11.1.0
-  # 网络请求模块
+  # ------ 网络请求模块 ------
   # @flutter.cn
   dio: ^5.4.0
-  # 地址跳转模块
+  # ------ 地址跳转模块 ------
   # 可用于唤醒其他 app 
-  # @flutter.dev
+  # @flutter.dev / Flutter Favorite
   url_launcher: ^6.2.3
-  # 本地数据缓存模块
-  # @flutter.dev
+  # ------ 本地数据缓存模块 ------
+  # @flutter.dev / Flutter Favorite
   shared_preferences: ^2.2.2
-  # 照相机/图片选择
+  # ------ 照相机/图片选择 ------
   # @flutter.dev
   image_picker: ^1.0.7
-  # 网络状态监测插件
-  # @publisherfluttercommunity.dev
+  # ------ 网络状态监测插件 ------
+  # @publisherfluttercommunity.dev / Flutter Favorite
   connectivity_plus: ^5.0.2
-  # # 一个 Flutter 插件，用于查找文件系统上的常用位置。
-  # # @flutter.dev
-  # path_provider: ^2.1.2
-  # 一个用于播放声音的组件
-  # @ryanheise.com
+  # ------ 一个用于播放声音的组件 ------
+  # @ryanheise.com / Flutter Favorite
   just_audio: ^0.9.36
- 
+  # ------ 本地通知模块 ------
+  # @dexterx.dev / Flutter Favorite
+  flutter_local_notifications: ^16.3.2
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   # ======= 中信赖度三方模块 =======
   # 1600+ likes
-  # 扫码模块
+  # ------ 扫码模块 ------
   qr_code_scanner: ^1.0.1
   # 1300+ likes
-  # 扫码模块
+  # ------ 扫码模块2 ------
   # 反应更灵敏，但是目前仅Android可用，iOS打包始终失败
   # @steenbakker.dev
   # mobile_scanner: 3.5.5
-  # 1300+ likes
-  # 播放/录制音频模块
-  # 目前仅Android可用，iOS打包始终失败
-  # flutter_sound: ^9.2.13
   # ======= 低信赖度三方模块 =======
-  # 下载安装 apk 文件模块
+  # ------ 下载安装 apk 文件模块 ------
   easy_app_installer: ^1.0.0
 
-  # 摇一摇事件监听模块
+  # ------ 摇一摇事件监听模块 ------
   # @joshi.dev
   shake: ^2.2.0
-  # 网络状态监测插件
-  # @dart.nonstopio.com
-  # connectivity_wrapper: ^1.1.4
-  # 手机震动
+  # ------ 手机震动 ------
   vibration: ^1.8.3
-  # flutter_local_notifications: ^16.3.2
+  # ------ 此包提供 IANA 时区数据库和时区感知的 DateTime 类 TZDateTime。 ------
+  # 用于配合 flutter_local_notifications 包做定时通知用
+  timezone: ^0.9.2
+
 
 dev_dependencies:
   flutter_test:

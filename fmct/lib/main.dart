@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Notification;
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     hide LocalStorage;
 import 'package:url_launcher/url_launcher.dart';
@@ -19,6 +19,9 @@ GlobalKey<MyAppState> appPageKey = GlobalKey();
 
 enum ConnectStateType { mobile, wifi, none, unknown }
 
+// 通知实例
+Notification notification = Notification();
+
 Future main() async {
   // 初始化必须
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,9 +34,11 @@ Future main() async {
     await InAppWebViewController.setWebContentsDebuggingEnabled(kDebugMode);
   }
 
-  String? isInitLoad = await LocalStorage.getValue('isInitLoad');
+  // 初始化通知模块的服务
+  await notification.init();
 
   // 首次运行，需前往欢迎
+  String? isInitLoad = await LocalStorage.getValue('isInitLoad');
   if (isInitLoad == null) {
     await LocalStorage.setValue('isInitLoad', 'true');
     runApp(const MaterialApp(home: Welcome()));

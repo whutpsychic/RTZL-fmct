@@ -26,4 +26,9 @@ void registerPermissionChannel(
     PermissionStatus result = await Permission.storage.request();
     await port.postMessage(WebMessage(data: "aprstorage('$result')"));
   }
+  // 通知权限✔
+  else if (fnKey == "notification") {
+    PermissionStatus result = await Permission.notification.request();
+    await port.postMessage(WebMessage(data: "aprnotification('$result')"));
+  }
 }
