@@ -194,9 +194,9 @@ class MyAppState extends State<MyApp> {
               // key: webViewKey,
               initialUrlRequest: URLRequest(url: WebUri(h5url)),
               initialSettings: settings,
-              onWebViewCreated: (controller) {
+              onWebViewCreated: (InAppWebViewController controller) {
                 webViewController = controller;
-                // _loadH5();
+                InAppWebViewController.clearAllCache();
               },
               onLoadStart: (controller, url) {},
               onPermissionRequest: (controller, request) async {
