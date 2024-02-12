@@ -116,6 +116,15 @@ void registerServiceChannel(
   else if (fnKey == 'screenVertical') {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
+  // 自由屏幕视角
+  else if (fnKey == 'screenFree') {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+      DeviceOrientation.landscapeLeft,
+      DeviceOrientation.landscapeRight
+    ]);
+  }
   // =================== 带参数调用 ===================
   else {
     // 短提示
