@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide Notification;
+import 'package:flutter/services.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart'
     hide LocalStorage;
 import 'package:url_launcher/url_launcher.dart';
@@ -25,6 +26,8 @@ Notification notification = Notification();
 Future main() async {
   // 初始化必须
   WidgetsFlutterBinding.ensureInitialized();
+  // 强制竖屏
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
   // flutter预置的变量
   // kIsWeb: 用于判定当前编译的程序是否是运行在web上的

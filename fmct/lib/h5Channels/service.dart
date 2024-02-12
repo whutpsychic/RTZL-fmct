@@ -107,6 +107,15 @@ void registerServiceChannel(
   else if (fnKey == 'unImmersed') {
     appPageKey.currentState?.setAppRenderType(false);
   }
+  // 强制横屏
+  else if (fnKey == 'screenHorizontal') {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+  }
+  // 强制竖屏
+  else if (fnKey == 'screenVertical') {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  }
   // =================== 带参数调用 ===================
   else {
     // 短提示
