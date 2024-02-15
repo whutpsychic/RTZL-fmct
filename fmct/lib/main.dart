@@ -187,7 +187,7 @@ class MyAppState extends State<MyApp> {
         Expanded(
           child: PopScope(
             canPop: false,
-            onPopInvoked: (didPop) {
+            onPopInvoked: (bool didPop) {
               if (didPop) {
                 return;
               }
@@ -199,9 +199,14 @@ class MyAppState extends State<MyApp> {
               initialSettings: settings,
               onWebViewCreated: (InAppWebViewController controller) {
                 webViewController = controller;
+                // 先清除一切缓存
                 InAppWebViewController.clearAllCache();
+
+                // 注册功能通道函数
+                registerServiceChannel(controller, context);
+                // 注册权限通道函数
+                registerPermissionChannel(controller, context);
               },
-              onLoadStart: (controller, url) {},
               onPermissionRequest: (controller, request) async {
                 return PermissionResponse(
                     resources: request.resources,
@@ -232,47 +237,19 @@ class MyAppState extends State<MyApp> {
 
                 return NavigationActionPolicy.ALLOW;
               },
-              onLoadStop: (controller, url) async {
-                // 加载完毕后记录当前web地址
-                if (!(h5url == '')) {
-                  setState(() {
-                    h5url = url.toString();
-                  });
-                }
-                // 仅android或者支持创建 web message 通道的平台生效
-                if (defaultTargetPlatform != TargetPlatform.android ||
-                    await WebViewFeature.isFeatureSupported(
-                        WebViewFeature.CREATE_WEB_MESSAGE_CHANNEL)) {
-                  // wait until the page is loaded, and then create the Web Message Channel
-                  var webMessageChannel =
-                      await controller.createWebMessageChannel();
-                  // 主操作端口
-                  var port1 = webMessageChannel!.port1;
-                  // 传递给web用于交互的端口
-                  var port2 = webMessageChannel.port2;
-
-                  // 记录在册
-                  setState(() {
-                    flutterPort = port1;
-                  });
-                  // set the web message callback for the port1
-                  await port1.setWebMessageCallback((message) async {
-                    if (kDebugMode) {
-                      print(' -------------------------------- from js ');
-                      print(message);
-                    }
-
-                    // 注册所有服务接口
-                    registerServiceChannel(context, port1, message);
-                    // 注册权限接口
-                    registerPermissionChannel(context, port1, message);
-                  });
-
-                  // transfer port2 to the webpage to initialize the communication
-                  await controller.postWebMessage(
-                      message:
-                          WebMessage(data: "initFlutterPort", ports: [port2]),
-                      targetOrigin: WebUri("*"));
+              onLoadStart: (controller, url) {},
+              onLoadStop: (controller, url) {
+                try {
+                  // 加载完毕后记录当前web地址
+                  if (!(h5url == '')) {
+                    setState(() {
+                      h5url = url.toString();
+                    });
+                  }
+                } catch (err) {
+                  if (kDebugMode) {
+                    print(err);
+                  }
                 }
               },
               onReceivedError: (controller, request, error) {

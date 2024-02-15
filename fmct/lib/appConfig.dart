@@ -13,7 +13,7 @@ class Configure {
   // 连接到本地开发环境
   // =================== production 产品模式 ===================
   // 连接到正式环境
-  static const AppMode appMode = AppMode.prodution;
+  static const AppMode appMode = AppMode.dev;
 }
 
 // 最终控制结果
