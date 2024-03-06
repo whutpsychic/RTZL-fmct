@@ -56,11 +56,11 @@ class _TakingPhotoState extends State<TakingPhoto> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () => {_logic()});
   }
 
   @override
   Widget build(BuildContext context) {
+    _logic();
     return Container();
   }
 

@@ -13,8 +13,8 @@ Future<void> registerPermissionChannel(
   // =================== 无参数调用 ===================
   // 打开 App 设置（权限专用）
   controller.addJavaScriptHandler(
-      handlerName: 'scanner',
-      callback: (args) async {
+      handlerName: 'openAppSettings',
+      callback: (List<dynamic> args) async {
         bool result = await openAppSettings();
         if (!result) {
           ModalTips.show(context, "警告", "无法从您的设备直接打开系统设置，请前往系统设置为应用设定权限。");
@@ -23,24 +23,24 @@ Future<void> registerPermissionChannel(
   // 相机/摄像头权限
   controller.addJavaScriptHandler(
       handlerName: '${preName}camera',
-      callback: (args) async {
+      callback: (List<dynamic> args) async {
         PermissionStatus result = await Permission.camera.request();
-        return result;
+        return result.toString();
       });
 
   // 读写权限
   controller.addJavaScriptHandler(
       handlerName: '${preName}storage',
-      callback: (args) async {
+      callback: (List<dynamic> args) async {
         PermissionStatus result = await Permission.storage.request();
-        return result;
+        return result.toString();
       });
 
   // 通知权限
   controller.addJavaScriptHandler(
       handlerName: '${preName}notification',
-      callback: (args) async {
+      callback: (List<dynamic> args) async {
         PermissionStatus result = await Permission.notification.request();
-        return result;
+        return result.toString();
       });
 }

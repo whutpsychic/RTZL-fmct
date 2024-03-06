@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 
-GlobalKey<_ProgressIndicatorState> key = GlobalKey();
+GlobalKey<ProgressIndicatorState> key = GlobalKey();
 
 class ModalProgress {
   static void addstep(double x) {
@@ -75,10 +75,10 @@ class ProgressIndicatorComponent extends StatefulWidget {
   const ProgressIndicatorComponent({super.key});
 
   @override
-  State<ProgressIndicatorComponent> createState() => _ProgressIndicatorState();
+  State<ProgressIndicatorComponent> createState() => ProgressIndicatorState();
 }
 
-class _ProgressIndicatorState extends State<ProgressIndicatorComponent>
+class ProgressIndicatorState extends State<ProgressIndicatorComponent>
     with TickerProviderStateMixin {
   late AnimationController controller;
   double _percent = 0.0;

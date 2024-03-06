@@ -173,11 +173,11 @@ class MyAppState extends State<MyApp> {
   }
 
   // 去拍照取相片
-  void takePhoto() async {
-    final result = await Navigator.of(context).push(
+  Future<String?> takePhoto() async {
+    final String? result = await Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => const TakingPhoto()),
     );
-    flutterPort.postMessage(WebMessage(data: "takePhoto('$result')"));
+    return result;
   }
 
   // 构建主显示口
